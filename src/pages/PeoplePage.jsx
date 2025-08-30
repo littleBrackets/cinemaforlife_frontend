@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Grid, Container, Typography } from "@mui/material";
-import { getPeople } from "../api/peopleApi";
+import { getPeople } from "../api/people";
 import PersonCard from "../components/PersonCard";
 
 export default function PeoplePage() {

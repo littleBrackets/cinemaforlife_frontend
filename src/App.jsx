@@ -4,7 +4,7 @@ import HomePage from "./pages/HomePage";
 import MoviesPage from "./pages/MoviesPage";
 import MovieDetailsPage from "./pages/MovieDetailsPage";
 import PeoplePage from "./pages/PeoplePage";
-import PersonDetailsPage from "../pages/PersonDetailsPage";
+import PersonDetailsPage from "./pages/PersonDetailsPage";
 
 export default function App() {
   return (
