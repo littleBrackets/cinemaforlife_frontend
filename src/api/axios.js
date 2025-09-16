@@ -1,7 +1,9 @@
 import axios from "axios";
 
-const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL, // backend express base URL
+export const movieService = axios.create({
+  baseURL: process.env.REACT_APP_MOVIE_SERVICE, // backend express base URL
 });
 
-export default api;
+export const userService = axios.create({
+  baseURL: process.env.REACT_APP_USER_SERVICE, // backend express base URL
+});
