@@ -7,12 +7,14 @@ import PeoplePage from "./pages/PeoplePage";
 import PersonDetailsPage from "./pages/PersonDetailsPage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import { isAuthorised } from "./utils/commonUtils";
+import { useSelector } from "react-redux";
 
 export default function App() {
 
+  const isAuthorised = useSelector(state => state.user.isAuthorised);
+
   function PrivateRoute() {
-    return isAuthorised() ? <Outlet /> : <Navigate to="/login" />;
+    return isAuthorised ? <Outlet /> : <Navigate to="/login" />;
   }
 
   return (

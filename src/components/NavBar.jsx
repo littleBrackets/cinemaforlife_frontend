@@ -1,13 +1,12 @@
 import { AppBar, Toolbar, Typography, Button } from "@mui/material";
-import { use } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { isAuthorised } from "../utils/commonUtils";
 import { setAuthorisation } from "../store/reducers/userReducer";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function NavBar() {
   const navigate = useNavigate();
   const dispach = useDispatch();
+  const isAuthorised = useSelector((state) => state.user.isAuthorised);
   return (
     <AppBar position="static">
       <Toolbar>
@@ -20,7 +19,7 @@ export default function NavBar() {
           CinemaForLife
         </Typography>
 
-        {isAuthorised() ? (
+        {isAuthorised ? (
           <>
             <Button color="inherit" component={Link} to="/">
               Home

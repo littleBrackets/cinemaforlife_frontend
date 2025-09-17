@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { Grid, Container, Typography } from "@mui/material";
 import { getPeople } from "../api/people";
-import PersonCard from "../components/PersonCard";
+import DataTable from "../components/DataTable";
+import { useNavigate } from "react-router-dom";
 
 export default function PeoplePage() {
   const [people, setPeople] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getPeople().then(setPeople).catch(console.error);
@@ -12,14 +14,20 @@ export default function PeoplePage() {
 
   return (
     <Container>
-      <Typography variant="h4" gutterBottom>People</Typography>
-      <Grid container spacing={2}>
-        {people.map(person => (
-          <Grid item xs={12} sm={6} md={4} key={person.nconst}>
-            <PersonCard person={person} />
-          </Grid>
-        ))}
-      </Grid>
+      <Typography variant="h4" gutterBottom>
+        People
+      </Typography>
+      <DataTable
+        metadata={[
+          { name: "Name", key: "primaryname" },
+          { name: "Credits", key: "primaryprofession" },
+          { name: "Born", key: "birthyear" },
+          { name: "Died", key: "deathyear" },
+        ]}
+        data={people}
+        maxHeight={400}
+        handleRowClick={(person) => navigate(`/people/${person.nconst}`)}
+      />
     </Container>
   );
 }
