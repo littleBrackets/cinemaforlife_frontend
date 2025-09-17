@@ -1,13 +1,18 @@
 import { Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function HomePage() {
-    return <>
-  
-  <Typography variant="h4">Welcome to CinemaForLife 🎬</Typography>
-
-  <h2>Go to Register <Link to={'/register'}>Sign Up</Link></h2>
-  <h2>Go to login <Link to={'/login'}>Login</Link></h2>
-  
-  </>;
+  const isAuthorised = useSelector((state) => state.user.isAuthorised);
+  return (
+    <>
+      <Typography variant="h4">Welcome to CinemaForLife 🎬</Typography>
+      {isAuthorised ? (
+        <></>
+      ) : (
+        <Typography variant="h6">
+          Please login or register to access more features.
+        </Typography>
+      )}
+    </>
+  );
 }

@@ -5,21 +5,14 @@ import MoviesPage from "./pages/MoviesPage";
 import MovieDetailsPage from "./pages/MovieDetailsPage";
 import PeoplePage from "./pages/PeoplePage";
 import PersonDetailsPage from "./pages/PersonDetailsPage";
-import AuthHomepage from "./pages/AuthHomepage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import { isAuthorised } from "./utils/commonUtils";
 
 export default function App() {
-  const useAuth = () => {
-    const token = localStorage.getItem("token"); // or use context/store
-    return { token };
-  };
 
-   const { token } = useAuth();
-
-     // Wrapper component to protect private routes
   function PrivateRoute() {
-    return token ? <Outlet /> : <Navigate to="/login" />;
+    return isAuthorised() ? <Outlet /> : <Navigate to="/login" />;
   }
 
   return (
@@ -29,7 +22,6 @@ export default function App() {
         <Route path="/register" element={<Register />} />
 
         <Route element={<PrivateRoute />}>
-          {/* <Route path="/profile" element={<ProfilePage />} /> */}
           <Route path="/movies" element={<MoviesPage />} />
           <Route path="/movies/:id" element={<MovieDetailsPage />} />
           <Route path="/people" element={<PeoplePage />} />
@@ -37,7 +29,7 @@ export default function App() {
           <Route path="/people/:id" element={<PersonDetailsPage />} />
         </Route>
 
-        <Route path="/" element={token ? <AuthHomepage /> : <HomePage />} />
+        <Route path="/" element={<HomePage />} />
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

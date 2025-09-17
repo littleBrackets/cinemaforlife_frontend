@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import "../assets/styles/login.css";
 import { login } from "../api/user";
+import { useNavigate } from "react-router-dom";
+import { setAuthorisation } from "../store/reducers/userReducer";
+import { useDispatch } from "react-redux";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const dispach = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,10 +25,13 @@ function Login() {
       .then((res) => {
         setLoading(false);
         localStorage.setItem("token", res.access_token);
+        dispach(setAuthorisation(true));
+        navigate("/");
       })
       .catch((err) => {
         setLoading(false);
-        throw new Error(err || "Login failed");
+        console.log("err", err);
+        setError("Login failed");
       });
   };
 
